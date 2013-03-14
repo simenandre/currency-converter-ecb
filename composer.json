@@ -1,0 +1,23 @@
+{
+    "name": "elvisciotti/currency-converter-ecb",
+    "type": "library",
+    "description": "PHP libraries to convert currencies using ECB rates from Xml file",
+    "keywords": ["php", "ecb", "euro", "dollar"],
+    "homepage": "https://github.com/elvisciotti/currency-converter-ecb",
+    "license": "GPL-3.0",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Elvis Ciotti",
+            "email": "elvis@phpntips.com"
+        }
+    ],
+    "require": {
+         "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": { 
+            "Ec\\Ecb": "library"
+        }
+    }
+}
