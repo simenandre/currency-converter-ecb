@@ -1,5 +1,4 @@
 <?php
-namespace Ec\Ecb;
 
 /**
  * Parser of currency rates from european central bank
@@ -10,14 +9,12 @@ class Converter
      * @var Parser
      */
     private $parser = array();
-    
+
     /**
-     * @param Parser $parser
+     * @var Url
+     * URL to European Central Bank
      */
-    public function __construct(Parser $parser)
-    {
-        $this->parser = $parser;
-    }
+    private $url = 'http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
     
     /**
      * @param string $currency
@@ -43,8 +40,18 @@ class Converter
      * 
      * @return float
      */
-    public function convert($value, $from, $to)
+    static function convert($value, $from, $to)
     {
+
+        $root = simplexml_load_string($data);
+        
+        if (!$root) {
+            throw new \RuntimeException("cannot parse XML input string");
+        }
+        foreach ($root->Cube->Cube->Cube as $node) {
+            $this->parser[(string)$node['currency']] = (string)$node['rate'];
+        }
+
         $from = strtoupper($from);
         $to = strtoupper($to);
         
